@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Recomendation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -39,7 +40,15 @@ class HomeController extends Controller
 
     public function showBook(Book $book)
     {
-        return view('showBook', compact('book'));
+        $userId = Auth::id();
+        $bookId = $book->id;
+
+        $recommendationExists = Recomendation::where('user_id', $userId)
+            ->whereHas('books', function ($query) use ($bookId) {
+                $query->where('books.id', $bookId);
+            })
+            ->exists();
+        return view('showBook', compact('book', 'recommendationExists'));
     }
 
     public function indexGenre()

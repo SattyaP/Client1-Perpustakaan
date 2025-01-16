@@ -17,7 +17,7 @@
                 <div class="badge text-bg-primary mb-3">{{ $book->genre->name }}</div>
                 <br>
 
-                @if ($book->isRecommendation())
+                @if ($recommendationExists)
                     <button class="btn btn-primary" disabled>Buku ini sudah anda rekomendasikan</button>
                 @else
                     <button onclick="hitRekomendasi()" class="btn btn-primary">Rekomendasikan Buku Ini</button>
