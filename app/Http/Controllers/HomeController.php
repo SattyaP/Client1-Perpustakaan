@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Recomendation;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $popularBooks = Book::withCount('recomendations')->orderBy('recomendations_count', 'desc')->take(5)->get();
+        return view('home', compact('popularBooks'));
     }
 
     public function indexBook()
