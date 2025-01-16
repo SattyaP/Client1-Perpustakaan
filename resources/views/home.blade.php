@@ -35,23 +35,26 @@
                 <h2 class="mb-4 text-center fw-bold">Buku Populer</h2>
                 <div class="row g-3">
                     @foreach ($popularBooks as $item)
-                        <div class="col-md-3">
-                            <div class="card h-100">
-                                <img src="{{ $item->cover }}" class="img-fluid" alt="{{ $item->title }}">
-                                <div class="card-body">
-                                    <h5 class="card-title"><strong>{{ $item->title }}</strong></h5>
-                                    <p class="card-text">{{ $item->description }}</p>
-                                    <span class="badge text-bg-primary">{{ $item->genre->name }}</span>
+                        @if ($item->recomendations_count > 0)
+                            <div class="col-md-3">
+                                <div class="card h-100">
+                                    <img src="{{ $item->cover }}" class="img-fluid" alt="{{ $item->title }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><strong>{{ $item->title }}</strong></h5>
+                                        <p class="card-text">{{ $item->description }}</p>
+                                        <span class="badge text-bg-primary">{{ $item->genre->name }}</span>
 
-                                    @if ($item->isRecommendation())
-                                        <span class="badge text-bg-success">Direkomendasikan {{ $item->recomendations_count }}</span>
-                                    @endif
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Penulis: {{ $item->author }}</small>
+                                        @if ($item->isRecommendation())
+                                            <span class="badge text-bg-success">Direkomendasikan
+                                                {{ $item->recomendations_count }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Penulis: {{ $item->author }}</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
